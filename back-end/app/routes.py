@@ -1,6 +1,7 @@
-from app import app
-from flask import jsonify, Response
+from app import app, db
+from flask import jsonify, request
 import time
+from app.models import Word
 
 # Create some test data for our catalog in the form of a list of dictionaries.
 books = [
@@ -29,6 +30,11 @@ def home():
 
 @app.route("/time")
 def get_current_time():
+    name = request.args.get('name')
+    translation = request.args.get('summary')
+    w = Word(name=name, translation=translation)
+    db.session.add(w)
+    db.session.commit()
     return {'time': time.time()}
 
 # A route to return all of the available entries in our catalog.
