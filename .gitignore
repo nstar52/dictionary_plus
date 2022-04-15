@@ -1,4 +1,4 @@
 front-end/node_modules/
 front-end/.eslintrc.json
 back-end/.venv/
-back-end/__pycache__/
+**/__pycache__
