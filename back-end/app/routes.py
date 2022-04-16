@@ -28,12 +28,21 @@ def home():
     return "Hello World! I am using Flask."
 
 
-@app.route("/time")
-def get_current_time():
+@app.route("/api/add", methods=['GET', 'POST'])
+def add_a_word():
     name = request.args.get('name')
     translation = request.args.get('summary')
-    w = Word(name=name, translation=translation)
+    w = Word(name=name, meaning=translation)
     db.session.add(w)
+    db.session.commit()
+    return {'time': time.time()}
+
+
+@app.route("/api/remove", methods=['GET', 'POST'])
+def remove_a_word():
+    name = request.args.get('name')
+    a_word = Word.query.filter_by(name=name).first_or_404()
+    db.session.delete(a_word)
     db.session.commit()
     return {'time': time.time()}
 
