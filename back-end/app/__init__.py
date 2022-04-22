@@ -13,5 +13,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-
 from app import routes, models
